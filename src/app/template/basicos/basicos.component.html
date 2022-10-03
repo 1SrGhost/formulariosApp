@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col">
     <form
-      (ngSubmit)="guardar(miFormulario)"
+      (ngSubmit)="guardar()"
       #miFormulario="ngForm"
       autocomplete="off"
     >
@@ -18,9 +18,10 @@
             ngModel
             name="producto"
             required
-           
+            minlength="3"
           />
-          <span class="form-text text-danger">
+          <span class="form-text text-danger"
+                *ngIf="nombreValido()"> 
             Debe de contener minimo 3 caracteres
           </span>
         </div>
@@ -72,6 +73,10 @@
   <div class="col">
     <span>Valid</span>
     <pre>{{ miFormulario.valid }}</pre>
+    <span>Pristine</span>
+    <pre>{{ miFormulario.pristine}}</pre>
+    <span>Touched</span>
+    <pre>{{ miFormulario.touched }}</pre>
     <span>Valor</span>
     <pre>{{ miFormulario.value | json }}</pre>
   </div>
