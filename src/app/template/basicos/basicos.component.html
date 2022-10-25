@@ -2,11 +2,7 @@
 <hr />
 <div class="row">
   <div class="col">
-    <form
-      (ngSubmit)="guardar()"
-      #miFormulario="ngForm"
-      autocomplete="off"
-    >
+    <form (ngSubmit)="guardar()" #miFormulario="ngForm" autocomplete="off">
       <!-- Campo de producto-->
       <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Producto</label>
@@ -20,8 +16,7 @@
             required
             minlength="3"
           />
-          <span class="form-text text-danger"
-                *ngIf="nombreValido()"> 
+          <span class="form-text text-danger" *ngIf="nombreValido()">
             Debe de contener minimo 3 caracteres
           </span>
         </div>
@@ -37,10 +32,9 @@
             ngModel
             name="precio"
             required
-            min="0"
           />
-          <span class="form-text text-danger">
-            El precio ingresado no es valido
+          <span class="form-text text-danger" *ngIf="cantidadValida()">
+            Debe de ser un precio valido
           </span>
         </div>
       </div>
@@ -54,6 +48,8 @@
             placeholder="existencias"
             ngModel
             name="existencias"
+            customMin
+            [minimo]="0"
             required
             min="0"
           />
@@ -61,7 +57,9 @@
       </div>
       <div class="row">
         <div class="col">
-          <button type="submit" class="btn btn-primary float-end">
+          <button type="submit"
+                  class="btn btn-primary float-end"
+                  [disabled]="miFormulario.invalid">
             Guardar
           </button>
         </div>
@@ -74,10 +72,12 @@
     <span>Valid</span>
     <pre>{{ miFormulario.valid }}</pre>
     <span>Pristine</span>
-    <pre>{{ miFormulario.pristine}}</pre>
+    <pre>{{ miFormulario.pristine }}</pre>
     <span>Touched</span>
     <pre>{{ miFormulario.touched }}</pre>
     <span>Valor</span>
     <pre>{{ miFormulario.value | json }}</pre>
+    <span>CustomDirective</span>
+    <pre>{{ miFormulario.controls['existencias']?.errors | json }}</pre>
   </div>
 </div>
