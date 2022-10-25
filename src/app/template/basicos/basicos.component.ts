@@ -9,6 +9,7 @@ import { NgForm } from '@angular/forms';
 export class BasicosComponent implements OnInit {
   @ViewChild('miFormulario') miFormulario!: NgForm;
 
+  /* Inicializando el formulario. */
   initForm = {
     producto: '',
     precio:0,
