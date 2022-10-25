@@ -13,7 +13,7 @@
             placeholder="Nombre del producto"
             formControlName="nombre"
           />
-          <span class="form-text text-danger">
+          <span class="form-text text-danger" *ngIf="validarCampo('nombre')">
             Debe de contener minimo 3 caracteres
           </span>
         </div>
@@ -28,7 +28,7 @@
             placeholder="precio del producto"
             formControlName="precio"
           />
-          <span class="form-text text-danger">
+          <span class="form-text text-danger" *ngIf="validarCampo('precio')">
             Debe de ser un precio valido
           </span>
         </div>
@@ -37,13 +37,24 @@
       <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Existencias</label>
         <div class="col-sm-9">
-          <input type="number" class="form-control" placeholder="existencias" formControlName="existencias" />
+          <input
+            type="number"
+            class="form-control"
+            placeholder="existencias"
+            formControlName="existencias"
+          />
+          <span class="form-text text-danger" *ngIf="validarCampo('existencias')">
+            debe ser una cantidad valida
+          </span>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <button type="submit" class="btn btn-primary float-end"
-          [disabled]="miFormulario.invalid">
+          <button
+            type="submit"
+            class="btn btn-primary float-end"
+            [disabled]="miFormulario.invalid"
+          >
             Guardar
           </button>
         </div>
@@ -61,6 +72,8 @@
     <pre>{{ miFormulario.touched }}</pre>
     <span>Valor</span>
     <pre>{{ miFormulario.value | json }}</pre>
+    <span>Precio</span>
+    <pre>{{ miFormulario.controls["precio"]?.errors | json }}</pre>
     <span>CustomDirective</span>
     <pre>{{ miFormulario.controls["existencias"]?.errors | json }}</pre>
   </div>
