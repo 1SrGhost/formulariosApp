@@ -1,6 +1,6 @@
 <h2>Reactivos: <small>Dinamicos</small></h2>
 <hr />
-<form autocomplete="off">
+<form (ngSubmit)="guardar()" autocomplete="off" [formGroup]="miFormulario">
   <!-- Nombre -->
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Nombre</label>
@@ -9,8 +9,11 @@
         class="form-control"
         placeholder="Nombre de la persona"
         name="nombre"
+        formControlName="nombre"
       />
-      <span class="form-text text-danger"> Este campo es obligatorio </span>
+      <span class="form-text text-danger" *ngIf="validarCampo('nombre')">
+        Este campo es obligatorio
+      </span>
     </div>
   </div>
 
@@ -28,19 +31,22 @@
   <!-- Lista de juegos favoritos -->
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Favoritos</label>
-    <!-- <div class="col-sm-9">
-      <div class="input-group mb-1">
-        <input class="form-control" />
+    <div class="col-sm-9" formArrayName="favoritos">
+      <div class="input-group mb-1" *ngFor="let favorito of favoritosArr.controls let i =index">
+        <input class="form-control" [formControlName]="i"  />
         <button class="btn btn-outline-danger" type="button">Eliminar</button>
       </div>
-    </div> -->
+    </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <button type="button" class="btn btn-primary float-end">Guardar</button>
+      <button type="submit" class="btn btn-primary float-end">Guardar</button>
     </div>
   </div>
 </form>
-
-<span>Persona</span>
-<!-- <pre>{{ persona | json }}</pre> -->
+<span>Valid</span>
+<pre>{{ miFormulario.valid }}</pre>
+<span>Value</span>
+<pre>{{ miFormulario.value | json }}</pre>
+<!-- <span>Persona</span>
+<pre>{{ persona | json }}</pre> -->
