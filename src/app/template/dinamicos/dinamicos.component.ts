@@ -17,7 +17,7 @@ interface iFavorito{
 })
 export class DinamicosComponent {
   @ViewChild('miFormulario') miFormulario!: NgForm;
-
+  favorito:string = '';
   persona: iPersona = {
     nombre: 'Andres',
     favorito : [{
@@ -28,7 +28,13 @@ export class DinamicosComponent {
       id: 1, nombre: 'GeardSecond'
     }]
   }
-
+  agregar(favorito: string){
+  
+    this.persona.favorito.push({id:this.persona.favorito.length+1,nombre:favorito})
+  }
+  eliminar(index:number){
+    this.persona.favorito.splice(index,1);
+  }
   
   guardar(){
     console.log('formulario posteado')
