@@ -23,7 +23,8 @@ export class RegistroComponent implements OnInit {
         [
           Validators.required,
           Validators.pattern(this.validatorService.emailPattern),
-        ],[this.emailValidator]
+        ],
+        [this.emailValidator],
       ],
       username: [
         ,
@@ -39,6 +40,21 @@ export class RegistroComponent implements OnInit {
     }
   );
 
+  
+  get emailErrorMsg():string {
+      const errors = this.miFormulario.get('email')?.errors;
+      if(errors?.['required']){
+        return 'Email es obligatorio';
+      }
+      else if(errors?.['pattern']){
+        return 'el formato del correo es incorrecto';
+      }
+      else if(errors?.['emailTomado']){
+        return 'ese email ya existe';
+      }
+
+      return '';
+  }
   constructor(
     private fb: FormBuilder,
     private validatorService: ValidatorService,
@@ -62,27 +78,27 @@ export class RegistroComponent implements OnInit {
     );
   }
 
-  emailRequired(){
-    return (
-      this.miFormulario.get('email')?.errors?.['required'] &&
-      this.miFormulario.get('email')?.touched
-    );
+  // emailRequired(){
+  //   return (
+  //     this.miFormulario.get('email')?.errors?.['required'] &&
+  //     this.miFormulario.get('email')?.touched
+  //   );
 
-  }
-  emailFormato(){
-    return (
-      this.miFormulario.get('email')?.errors?.['pattern'] &&
-      this.miFormulario.get('email')?.touched
-    );
+  // }
+  // emailFormato(){
+  //   return (
+  //     this.miFormulario.get('email')?.errors?.['pattern'] &&
+  //     this.miFormulario.get('email')?.touched
+  //   );
 
-  }
-  emailTomado(){
-    return (
-      this.miFormulario.get('email')?.errors?.['emailTomado'] &&
-      this.miFormulario.get('email')?.touched
-    );
+  // }
+  // emailTomado(){
+  //   return (
+  //     this.miFormulario.get('email')?.errors?.['emailTomado'] &&
+  //     this.miFormulario.get('email')?.touched
+  //   );
 
-  }
+  // }
 
   submitFormulario() {
     this.miFormulario.markAllAsTouched();
