@@ -35,4 +35,14 @@ reactiveMenu: IMenuItem[] = [{
   text: 'switches',
   ruta: './reactive/switches'
 }]
+
+authMenu: IMenuItem[] = [{
+  text: 'Registro',
+  ruta: './auth/registro'
+},
+{
+  text: 'Login',
+  ruta: './auth/login'
+}]
+
 }
