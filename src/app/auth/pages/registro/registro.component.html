@@ -3,7 +3,11 @@
 
 <div class="row">
   <div class="col">
-    <form autocomplete="off" [formGroup]="miFormulario" (ngSubmit)="submitFormulario()">
+    <form
+      autocomplete="off"
+      [formGroup]="miFormulario"
+      (ngSubmit)="submitFormulario()"
+    >
       <!-- Nombre -->
       <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Nombre</label>
@@ -27,7 +31,11 @@
             type="email"
             class="form-control"
             placeholder="email del usuario"
+            formControlName="email"
           />
+          <span class="form-text text-danger" *ngIf="campoNoValido('email')">
+            debe de ser un correo valido
+          </span>
         </div>
       </div>
       <!-- Username -->
@@ -38,7 +46,11 @@
             type="text"
             class="form-control"
             placeholder="username del usuario"
+            formControlName="username"
           />
+          <span class="form-text text-danger" *ngIf="campoNoValido('username')">
+            el username es obligatorio, no puede ser strider
+          </span>
         </div>
       </div>
       <!-- password -->
@@ -65,7 +77,9 @@
       </div>
       <div class="row">
         <div class="col">
-          <button class="btn btn-primary float-end" type="submit">Registrar</button>
+          <button class="btn btn-primary float-end" type="submit">
+            Registrar
+          </button>
         </div>
       </div>
     </form>
@@ -74,4 +88,8 @@
 
 <h2>Form Valid : {{ miFormulario.valid | json }}</h2>
 <h6>Nombre</h6>
-<pre>{{miFormulario.controls['nombre'].errors|json}}</pre>
+<pre>{{ miFormulario.controls["nombre"].errors | json }}</pre>
+<h6>Email</h6>
+<pre>{{ miFormulario.controls["email"].errors | json }}</pre>
+<h6>UserName</h6>
+<pre>{{ miFormulario.controls["username"].errors | json }}</pre>
