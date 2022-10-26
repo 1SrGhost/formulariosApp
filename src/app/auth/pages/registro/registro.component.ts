@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorService } from 'src/app/shared/validator/validator.service';
-
+import { EmailValidatorsService } from '../../../shared/validator/email-validators.service';
 
 @Component({
   selector: 'app-registro',
@@ -9,20 +9,41 @@ import { ValidatorService } from 'src/app/shared/validator/validator.service';
   styleUrls: ['./registro.component.css'],
 })
 export class RegistroComponent implements OnInit {
+  miFormulario: FormGroup = this.fb.group(
+    {
+      nombre: [
+        ,
+        [
+          Validators.required,
+          Validators.pattern(this.validatorService.nombrePattern),
+        ],
+      ],
+      email: [
+        ,
+        [
+          Validators.required,
+          Validators.pattern(this.validatorService.emailPattern),
+        ],[this.emailValidator]
+      ],
+      username: [
+        ,
+        [Validators.required, this.validatorService.noPuedeserStrider],
+      ],
+      password: [, [Validators.required, Validators.minLength(6)]],
+      password2: [, [Validators.required]],
+    },
+    {
+      validators: [
+        this.validatorService.camposIguales('password', 'password2'),
+      ],
+    }
+  );
 
-
-  miFormulario: FormGroup = this.fb.group({
-    nombre: [, [Validators.required, Validators.pattern(this.validatorService.nombrePattern)]],
-    email: [, [Validators.required, Validators.pattern(this.validatorService.emailPattern)]],
-    username: [, [Validators.required,this.validatorService.noPuedeserStrider]],
-    password: [, [Validators.required,Validators.minLength(6)]],
-    password2: [, [Validators.required]],
-  },{
-    validators: [this.validatorService.camposIguales('password','password2')]
-  });
-
-  constructor(private fb: FormBuilder,
-    private validatorService : ValidatorService ) {}
+  constructor(
+    private fb: FormBuilder,
+    private validatorService: ValidatorService,
+    private emailValidator: EmailValidatorsService
+  ) {}
 
   ngOnInit(): void {
     this.miFormulario.reset({
