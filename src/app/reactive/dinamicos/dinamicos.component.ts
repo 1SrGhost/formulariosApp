@@ -56,6 +56,10 @@ export class DinamicosComponent implements OnInit {
     this.nuevoFavorito.reset();
   }
 
+/**
+ * Estamos usando el método removeAt() para eliminar el índice del favorito que queremos eliminar
+ * @param {number} index - número: el índice del elemento que se va a eliminar.
+ */
   borrarFavorito(index: number) {
     console.log(index);
     this.favoritosArr.removeAt(index);
