@@ -1,42 +1,64 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormArray,
+  FormControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-dinamicos',
   templateUrl: './dinamicos.component.html',
-  styleUrls: ['./dinamicos.component.css']
+  styleUrls: ['./dinamicos.component.css'],
 })
 export class DinamicosComponent implements OnInit {
-
   miFormulario: FormGroup = this.fb.group({
     nombre: [, [Validators.required, Validators.minLength(3)]],
-    favoritos: this.fb.array([
-      ['Metal Gear'],
-      ['Death Stranding']
-    ],Validators.required)
-   
+    favoritos: this.fb.array(
+      [['Metal Gear'], ['Death Stranding']],
+      Validators.required
+    ),
   });
 
-  get favoritosArr(){
+  nuevoFavorito: FormControl = this.fb.control('', Validators.required);
+  /**
+   * Devuelve el FormArray denominado 'favoritos' del FormGroup denominado 'miFormulario'
+   * @returns El objeto FormArray
+   */
+  get favoritosArr() {
     return this.miFormulario.get('favoritos') as FormArray;
   }
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   validarCampo(campo: string) {
     return (
       this.miFormulario.controls[campo].errors &&
       this.miFormulario.controls[campo].touched
     );
   }
-  guardar(){
+  agregarFavorito() {
+    if (this.nuevoFavorito.invalid) {
+      return;
+    }
+
+    // this.favoritosArr.push(
+    //   new FormControl(this.nuevoFavorito.value, Validators.required)
+
+    // );
+
+    this.favoritosArr.push(
+      this.fb.control(this.nuevoFavorito.value, Validators.required)
+    );
+
+    this.nuevoFavorito.reset();
+  }
+  guardar() {
     if (this.miFormulario.invalid) {
       this.miFormulario.markAllAsTouched();
       return;
     }
     this.miFormulario.reset();
   }
-  
-
 }
