@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import {
   FormGroup,
   FormBuilder,
@@ -53,6 +54,11 @@ export class DinamicosComponent implements OnInit {
     );
 
     this.nuevoFavorito.reset();
+  }
+
+  borrarFavorito(index: number) {
+    console.log(index);
+    this.favoritosArr.removeAt(index);
   }
   guardar() {
     if (this.miFormulario.invalid) {
