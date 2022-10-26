@@ -29,11 +29,16 @@ export class SwitchesComponent implements OnInit {
     //   this.persona = form;
     // });
 
+/* Desestructurando el valor del formulario y asignando el resto de valores al objeto `persona`. */
     this.miFormulario.valueChanges.subscribe(({tYc, ...rest})=> {
       this.persona = rest;
     })
   }
 
+/**
+ * Toma el valor del formulario, lo copia en un nuevo objeto, elimina la propiedad tYc de ese objeto y
+ * luego asigna el resultado a la propiedad persona.
+ */
   guardar() {
     const formValue = { ...this.miFormulario.value };
     delete formValue.tYc;
