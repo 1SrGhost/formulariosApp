@@ -33,8 +33,14 @@
             placeholder="email del usuario"
             formControlName="email"
           />
-          <span class="form-text text-danger" *ngIf="campoNoValido('email')">
-            debe de ser un correo valido
+          <span class="form-text text-danger" *ngIf="emailRequired()">
+            este campo es obligatorio
+          </span>
+          <span class="form-text text-danger" *ngIf="emailFormato()">
+            El correo ingresado no tiene un formato correcto
+          </span>
+          <span class="form-text text-danger" *ngIf="emailTomado()">
+            intente con otro correo ese correo ya existe en nuestro sistema
           </span>
         </div>
       </div>
@@ -85,7 +91,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <button class="btn btn-primary float-end" type="submit">
+          <button class="btn btn-primary float-end" type="submit" [disabled]="miFormulario.pending">
             Registrar
           </button>
         </div>
@@ -95,6 +101,7 @@
 </div>
 
 <h2>Form Valid : {{ miFormulario.valid | json }}</h2>
+<h2>Form status: {{ miFormulario.status | json }}</h2>
 <h2>Form Errors</h2>
 <pre>{{miFormulario.errors|json}}</pre>
 <h6>Nombre</h6>

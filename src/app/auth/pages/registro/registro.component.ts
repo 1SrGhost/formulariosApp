@@ -50,6 +50,8 @@ export class RegistroComponent implements OnInit {
       nombre: 'Andres Perez',
       email: 'test@test.com',
       username: '1SrGhost',
+      password: '123456',
+      password2: '123456',
     });
   }
 
@@ -58,6 +60,28 @@ export class RegistroComponent implements OnInit {
       this.miFormulario.get(campo)?.invalid &&
       this.miFormulario.get(campo)?.touched
     );
+  }
+
+  emailRequired(){
+    return (
+      this.miFormulario.get('email')?.errors?.['required'] &&
+      this.miFormulario.get('email')?.touched
+    );
+
+  }
+  emailFormato(){
+    return (
+      this.miFormulario.get('email')?.errors?.['pattern'] &&
+      this.miFormulario.get('email')?.touched
+    );
+
+  }
+  emailTomado(){
+    return (
+      this.miFormulario.get('email')?.errors?.['emailTomado'] &&
+      this.miFormulario.get('email')?.touched
+    );
+
   }
 
   submitFormulario() {
